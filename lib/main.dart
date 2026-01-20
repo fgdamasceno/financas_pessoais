@@ -1,3 +1,4 @@
+import 'package:financas_pessoais/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,11 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Gerenciador Financeiro',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: Scaffold(
-        body: Center(
-          child: Text('Bem-vindo ao seu app de finanças!'),
-        ),
-      ),
+      home: Scaffold(body: HomePage()),
     );
   }
 }
