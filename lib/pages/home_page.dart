@@ -6,10 +6,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Variáveis simples para simular dados
     const String usuario = 'Desenvolvedor';
     const double saldo = 1250.50;
-    const double despesas = 450.00;
+    // Removida a variável 'despesas' fixa pois agora usamos a lista
 
     final List<Transacao> transacoes = [
       Transacao(
@@ -44,17 +43,19 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meu Dinheiro'),
+        title: const Text('Meu Dinheiro'),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
       body: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Alinha o título "Histórico" à esquerda
         children: [
-          // Cartão de saldo
+          // MANTEMOS: Cartão de saldo
           Container(
             width: double.infinity,
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.all(24),
+            margin: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: Colors.teal.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
@@ -62,11 +63,11 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Olá, $usuario', style: TextStyle(fontSize: 18)),
-                SizedBox(height: 8),
-                Row(
+                const Text('Olá, $usuario', style: TextStyle(fontSize: 18)),
+                const SizedBox(height: 8),
+                const Row(
                   children: [
-                    Icon(Icons.account_balance_wallet),
+                    Icon(Icons.account_balance_wallet, color: Colors.teal),
                     SizedBox(width: 8),
                     Text(
                       'Saldo Atual: ',
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Text(
                   'R\$ ${saldo.toStringAsFixed(2)}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.teal,
@@ -85,56 +86,26 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          // Cartão de transações
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.blue[100],
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Últimas transações:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  '- R\$ ${despesas.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
-          ),
 
-          Padding(
-            padding: EdgeInsetsGeometry.all(16.0),
+          // DESCARTADO: O Container de "Últimas transações" fixo foi removido daqui.
+
+          // Título do Histórico
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text(
               'Histórico',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
 
-          // ListView deve estar dentro de um Expanded para não dar erro de tamanho infinito
+          // Lista Dinâmica
           Expanded(
             child: ListView.builder(
               itemCount: transacoes.length,
               itemBuilder: (context, index) {
                 final tr = transacoes[index];
                 return ListTile(
-                  onTap: () {
-                    print(tr.titulo);
-                  },
+                  onTap: () => print(tr.titulo),
                   leading: CircleAvatar(
                     backgroundColor: tr.tipo == TipoTransacao.receita
                         ? Colors.green
@@ -146,7 +117,10 @@ class HomePage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  title: Text(tr.titulo),
+                  title: Text(
+                    tr.titulo,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
                   subtitle: Text(
                     '${tr.data.day}/${tr.data.month}/${tr.data.year}',
                   ),
