@@ -6,12 +6,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Variáveis simples para simular dados
-    String usuario = 'Desenvolvedor';
-    double saldo = 1250.50;
-    double despesas = 450.00;
+    const String usuario = 'Desenvolvedor';
+    const double saldo = 1250.50;
+    const double despesas = 450.00;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Meu Dinheiro'), backgroundColor: Colors.teal),
+      appBar: AppBar(
+        title: Text('Meu Dinheiro'),
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
+      ),
       body: Column(
         children: [
           // Cartão de saldo
@@ -39,7 +43,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  'R\$ $saldo',
+                  'R\$ ${saldo.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -49,6 +53,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+          // Cartão de transações
           Container(
             width: double.infinity,
             margin: EdgeInsets.all(16),
@@ -64,10 +69,11 @@ class HomePage extends StatelessWidget {
                   'Últimas transações:',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 8),
                 Text(
-                  '- R\$ $despesas',
+                  '- R\$ ${despesas.toStringAsFixed(2)}',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.red,
                   ),
